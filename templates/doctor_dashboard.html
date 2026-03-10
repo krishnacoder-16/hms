@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctor Dashboard - Mini HMS{% endblock %}
+
+{% block content %}
+<div class="px-2 py-3">
+    <!-- Header Section -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-8">
+            <h2 class="fw-bolder display-6 text-dark mb-1">Doctor Dashboard</h2>
+            <p class="lead text-muted mb-0">Welcome back, Dr. {{ user.first_name }} {{ user.last_name }}!</p>
+        </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="row g-4">
+        <!-- Manage Availability Card -->
+        <div class="col-md-6 col-lg-5">
+            <div class="card h-100 p-4 border-0 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-inline-flex mb-3 align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle" style="width: 60px; height: 60px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+                            <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>
+                    </div>
+                    <h4 class="card-title fw-bold mb-3">Manage Availability</h4>
+                    <p class="card-text text-muted mb-4">Set up or edit your available time slots so that patients can easily book an appointment with you.</p>
+                    <a href="#" class="btn btn-outline-primary mt-auto fw-medium px-4">Add Time Slot</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Appointments Card -->
+        <div class="col-md-6 col-lg-5">
+            <div class="card h-100 p-4 border-0 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-inline-flex mb-3 align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 60px; height: 60px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+                        </svg>
+                    </div>
+                    <h4 class="card-title fw-bold mb-3">View Appointments</h4>
+                    <p class="card-text text-muted mb-4">View your daily consultation schedule and manage your confirmed patient bookings.</p>
+                    <a href="#" class="btn btn-success mt-auto text-white fw-medium px-4 shadow-sm">View Appointments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

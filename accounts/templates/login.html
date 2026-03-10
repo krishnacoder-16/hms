@@ -1,1 +1,26 @@
-<h2>Login Page</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In - Mini HMS</title>
+</head>
+<body>
+    <h2>Login Page</h2>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Log In</button>
+    </form>
+    
+    <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a>.</p>
+</body>
+</html>
