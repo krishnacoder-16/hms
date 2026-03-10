@@ -26,7 +26,7 @@
                     </div>
                     <h4 class="card-title fw-bold mb-3">Manage Availability</h4>
                     <p class="card-text text-muted mb-4">Set up or edit your available time slots so that patients can easily book an appointment with you.</p>
-                    <a href="#" class="btn btn-outline-primary mt-auto fw-medium px-4">Add Time Slot</a>
+                    <a href="{% url 'add_availability' %}" class="btn btn-outline-primary mt-auto fw-medium px-4">Add Availability</a>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                     </div>
                     <h4 class="card-title fw-bold mb-3">View Appointments</h4>
                     <p class="card-text text-muted mb-4">View your daily consultation schedule and manage your confirmed patient bookings.</p>
-                    <a href="#" class="btn btn-success mt-auto text-white fw-medium px-4 shadow-sm">View Appointments</a>
+                    <a href="{% url 'doctor_slots' %}" class="btn btn-success mt-auto text-white fw-medium px-4 shadow-sm">My Slots</a>
                 </div>
             </div>
         </div>
