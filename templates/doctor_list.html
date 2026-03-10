@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Available Doctors - Mini HMS{% endblock %}
+
+{% block content %}
+<div class="row mb-4 align-items-center">
+    <div class="col-md-8">
+        <h3 class="fw-bold text-dark mb-1">Available Doctors</h3>
+        <p class="text-muted mb-0">Select a specialist below to view their available consultation slots.</p>
+    </div>
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="{% url 'patient_dashboard' %}" class="btn btn-outline-secondary fw-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-1 pb-1" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for doctor in doctors %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+            <div class="card-body p-4 text-center">
+                <div class="d-inline-flex mb-3 align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle" style="width: 80px; height: 80px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-hearts" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11.5 1.246c.832-.855 2.913.642 0 2.566-2.913-1.924-.832-3.421 0-2.566ZM9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276ZM15 2.165c.555-.57 1.942.428 0 1.711-1.942-1.283-.555-2.281 0-1.71Z"/>
+                    </svg>
+                </div>
+                <!-- Try to render DoctorProfile info if it exists, otherwise fallback to User info -->
+                <h5 class="fw-bold mb-1">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h5>
+                <p class="text-muted small mb-3">
+                    {% if doctor.doctor_profile %}
+                        {{ doctor.doctor_profile.specialty }}
+                    {% else %}
+                        General Practitioner
+                    {% endif %}
+                </p>
+                <a href="{% url 'doctor_slots_list' doctor.id %}" class="btn btn-primary w-100 fw-medium shadow-sm rounded-pill mt-2">View Slots</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 py-5 text-center">
+        <h5 class="text-muted fw-bold">No doctors available yet.</h5>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+</style>
+{% endblock content %}

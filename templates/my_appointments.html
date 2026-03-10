@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}My Appointments - Mini HMS{% endblock %}
+
+{% block content %}
+<div class="row mb-4 align-items-center">
+    <div class="col-md-8">
+        <h3 class="fw-bold text-dark mb-1">My Appointments</h3>
+        <p class="text-muted mb-0">Review your past and upcoming medical consultations.</p>
+    </div>
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="{% url 'patient_dashboard' %}" class="btn btn-outline-secondary fw-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-1 pb-1" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="card p-0 border-0 shadow-sm overflow-hidden">
+    {% if appointments %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col" class="py-3 px-4 text-secondary fw-semibold">Doctor Name</th>
+                    <th scope="col" class="py-3 px-4 text-secondary fw-semibold">Date</th>
+                    <th scope="col" class="py-3 px-4 text-secondary fw-semibold">Time</th>
+                    <th scope="col" class="py-3 px-4 text-secondary fw-semibold">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in appointments %}
+                <tr>
+                    <td class="px-4 py-3 fw-bold text-dark">
+                        Dr. {{ booking.doctor.first_name }} {{ booking.doctor.last_name }}
+                    </td>
+                    <td class="px-4 py-3 fw-medium text-muted">
+                        {{ booking.availability_slot.date|date:"F j, Y" }}
+                    </td>
+                    <td class="px-4 py-3 text-muted">
+                        {{ booking.availability_slot.start_time|time:"g:i A" }} - {{ booking.availability_slot.end_time|time:"g:i A" }}
+                    </td>
+                    <td class="px-4 py-3">
+                        {% if booking.status == 'BOOKED' %}
+                        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill shadow-sm">
+                            <i class="bi bi-check-circle-fill me-1"></i> Booked
+                        </span>
+                        {% else %}
+                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-2 rounded-pill shadow-sm">
+                            <i class="bi bi-x-circle-fill me-1"></i> Cancelled
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="card-body text-center p-5">
+        <div class="text-muted mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-card-checklist opacity-50" viewBox="0 0 16 16">
+              <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+              <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+            </svg>
+        </div>
+        <h5 class="fw-bold text-dark">No appointments booked</h5>
+        <p class="text-muted mb-4">You have not booked any consultations yet. Find a doctor to get started.</p>
+        <a href="{% url 'doctor_list' %}" class="btn btn-primary fw-medium px-4">Find a Doctor</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

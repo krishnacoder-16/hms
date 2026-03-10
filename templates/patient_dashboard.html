@@ -26,7 +26,7 @@
                     </div>
                     <h4 class="card-title fw-bold mb-3">Book Appointment</h4>
                     <p class="card-text text-muted mb-4">Select a specialist and book your next appointment directly at your convenience.</p>
-                    <a href="#" class="btn btn-primary mt-auto text-white fw-medium px-4 shadow-sm">View Doctors</a>
+                    <a href="{% url 'doctor_list' %}" class="btn btn-primary mt-auto text-white fw-medium px-4 shadow-sm">View Doctors</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     </div>
                     <h4 class="card-title fw-bold mb-3">My Appointments</h4>
                     <p class="card-text text-muted mb-4">Keep track of your medical history and upcoming scheduled appointments.</p>
-                    <a href="#" class="btn btn-outline-success mt-auto fw-medium px-4">My Bookings</a>
+                    <a href="{% url 'my_appointments' %}" class="btn btn-outline-success mt-auto fw-medium px-4">My Bookings</a>
                 </div>
             </div>
         </div>
