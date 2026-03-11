@@ -1,0 +1,3 @@
+# Add any dependencies here, e.g., if you were using requests or boto3
+# Python's built-in smtplib and email packages are used, so external dependencies are minimal.
+# serverless-python-requirements will package anything listed here.

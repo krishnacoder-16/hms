@@ -6,6 +6,7 @@ from django.db import transaction
 from accounts.models import User
 from doctors.models import Availability
 from bookings.models import Booking
+from hms_project.utils import send_email_notification
 
 def is_patient(user):
     return user.is_authenticated and user.role == User.Role.PATIENT
@@ -68,6 +69,15 @@ def book_slot(request, slot_id):
                     availability_slot=slot,
                     status='BOOKED'
                 )
+                
+                send_email_notification({
+                    "type": "BOOKING_CONFIRMATION",
+                    "email": request.user.email,
+                    "name": f"{request.user.first_name} {request.user.last_name}".strip() or "Patient",
+                    "doctor": f"{slot.doctor.first_name} {slot.doctor.last_name}".strip(),
+                    "date": slot.date.strftime("%Y-%m-%d"),
+                    "time": f"{slot.start_time.strftime('%I:%M %p')} - {slot.end_time.strftime('%I:%M %p')}"
+                })
                 
                 messages.success(request, f"Successfully booked appointment with Dr. {slot.doctor.last_name} on {slot.date} at {slot.start_time}.")
                 return redirect("my_appointments")

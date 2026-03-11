@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.forms import SignupForm, LoginForm
 from accounts.models import User
+from hms_project.utils import send_email_notification
 
 def signup_view(request):
     if request.user.is_authenticated:
@@ -12,7 +13,12 @@ def signup_view(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            send_email_notification({
+                "type": "SIGNUP_WELCOME",
+                "email": user.email,
+                "name": f"{user.first_name} {user.last_name}".strip() or "User"
+            })
             messages.success(request, "Account created successfully. Please log in.")
             return redirect("login")
     else:
