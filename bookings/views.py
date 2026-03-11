@@ -7,6 +7,7 @@ from accounts.models import User
 from doctors.models import Availability
 from bookings.models import Booking
 from hms_project.utils import send_email_notification
+from hms_project.calendar_service import create_calendar_event
 
 def is_patient(user):
     return user.is_authenticated and user.role == User.Role.PATIENT
@@ -78,6 +79,17 @@ def book_slot(request, slot_id):
                     "date": slot.date.strftime("%Y-%m-%d"),
                     "time": f"{slot.start_time.strftime('%I:%M %p')} - {slot.end_time.strftime('%I:%M %p')}"
                 })
+                
+                # Trigger Google Calendar Integration
+                create_calendar_event(
+                    doctor_email=slot.doctor.email,
+                    patient_email=request.user.email,
+                    doctor_name=f"{slot.doctor.first_name} {slot.doctor.last_name}".strip(),
+                    patient_name=f"{request.user.first_name} {request.user.last_name}".strip() or "Patient",
+                    date=slot.date,
+                    start_time=slot.start_time,
+                    end_time=slot.end_time
+                )
                 
                 messages.success(request, f"Successfully booked appointment with Dr. {slot.doctor.last_name} on {slot.date} at {slot.start_time}.")
                 return redirect("my_appointments")

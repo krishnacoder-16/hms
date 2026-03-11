@@ -12,3 +12,6 @@ email-service/node_modules/
 
 # Environment
 .env
+
+credentials.json
+token.json
